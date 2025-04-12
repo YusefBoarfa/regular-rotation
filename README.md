@@ -1,48 +1,43 @@
-# Astro Starter Kit: Basics
+# 🚀 Astro + Docker + Nginx Static Deployment
 
-```sh
-npm create astro@latest -- --template basics
-```
+This project is a minimal setup to test how to build and serve an [Astro](https://astro.build/) application using a multi-stage `Dockerfile`, Nginx, and a simple `Makefile` for automation.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🐳 Docker Overview
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This setup uses a **multi-stage Docker build**:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+1. **Build Stage**: Uses `node:20-alpine` to install dependencies and run `astro build`.
+2. **Final Stage**: Uses `nginx:alpine` to serve the static files from `dist/`.
 
-## 🚀 Project Structure
+## 🔧 How to Use
 
-Inside of your Astro project, you'll see the following folders and files:
+### 🛠 Build and Run
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+```bash
+make up
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+This will:
+	•	Build the Docker image (astro-docker-app)
+	•	Run a container serving your static site at http://localhost:3000
 
-## 🧞 Commands
+Clean Up
+    make clean
 
-All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+This will:
+	•	Remove the Docker image (astro-docker-app)
+	•	(Note: running containers are not removed unless added explicitly)
 
-## 👀 Want to learn more?
+📦 Requirements
+	•	Docker
+	•	Make (built-in on Linux/macOS)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+ Why This Setup?
+	•	Astro generates static files — perfect for Nginx.
+	•	Using Docker multi-stage keeps the final image lightweight.
+	•	Nginx handles serving files with high performance.
+	•	Makefile makes the workflow easy and repeatable.
+
+🧪 License
+
+This project is just a test and has no license restrictions. Use it freely for learning and experimentation.
